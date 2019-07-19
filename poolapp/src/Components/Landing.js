@@ -7,7 +7,8 @@ class Landing extends Component {
     return (
       <div className="Landing">
         <h1 className="Landing__Header">Pool App</h1>
-        <Link to="/create">create user</Link>
+        <Link to="/createplayer">create player</Link>
+        <Link to="creategame"> create game</Link>
         <Link to="leaderboard"> leaderboard </Link>
       </div>
     );
