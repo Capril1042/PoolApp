@@ -8,8 +8,8 @@ class Landing extends Component {
       <div className="Landing">
         <h1 className="Landing__Header">Pool App</h1>
         <Link to="/createplayer">create player</Link>
-        <Link to="creategame"> create game</Link>
-        <Link to="leaderboard"> leaderboard </Link>
+        <Link to="/creategame"> create game</Link>
+        <Link to="/leaderboard"> leaderboard </Link>
       </div>
     );
   }

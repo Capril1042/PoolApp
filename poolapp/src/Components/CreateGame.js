@@ -29,11 +29,26 @@ class CreateGame extends Component {
     this.setState({ winner: e.target.value });
   };
 
-  handleSubmit = e => {
+  handlePlayerSubmit = e => {
     //save game document to firebase
+    console.log(this.state.playerOne);
+    console.log(this.state.playerTwo);
+
+    alert(
+      `${this.state.playerOne} and ${this.state.playerTwo} are playing a game`
+    );
     e.preventDefault();
   };
 
+  handleGameSubmit = e => {
+    db.collection("games").add({
+      player1: this.state.playerOne,
+      player2: this.state.playerTwo,
+      winner: this.state.winner
+    });
+    alert(`${this.state.winner} won the game`);
+    e.preventDefault();
+  };
   componentDidMount() {
     db.collection("players")
       .get()
@@ -51,13 +66,11 @@ class CreateGame extends Component {
 
   render() {
     const players = this.state.players;
-    console.log(this.state.playerOne);
-    console.log(this.state.playerTwo);
-    console.log(this.state.winner);
+
     return (
       <div className="CreateGame">
         <h1>Create Game</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handlePlayerSubmit}>
           <label>
             Player 1:
             <select
@@ -90,6 +103,10 @@ class CreateGame extends Component {
               ;
             </select>
           </label>
+          <input type="submit" value="Submit" />
+        </form>
+        <form onSubmit={this.handleGameSubmit}>
+          {" "}
           <label>
             winner:
             <select type="select" name="winner" onChange={this.handleWinner}>
@@ -101,7 +118,7 @@ class CreateGame extends Component {
               </option>
             </select>
           </label>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" />{" "}
         </form>
       </div>
     );
