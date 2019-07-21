@@ -109,7 +109,11 @@ class CreateGame extends Component {
           {" "}
           <label>
             winner:
-            <select type="select" name="winner" onChange={this.handleWinner}>
+            <select
+              type="select"
+              name="winner"
+              onChange={this.handleChangeWinner}
+            >
               <option value={this.state.playerOne}>
                 {this.state.playerOne}
               </option>
