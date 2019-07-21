@@ -1,0 +1,10 @@
+.creategame--heading {
+    font-size: 3em;
+    color: white;
+  }
+
+.selectplayers--form {
+    display:inline-block;
+    height: 10vh;
+    width: 75vw;
+}
