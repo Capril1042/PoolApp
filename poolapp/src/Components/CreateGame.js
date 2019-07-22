@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import db from "../firebase.js";
 
-import "./CreateGame.css";
+import "./CreatePlayerGame.css";
 
 class CreateGame extends Component {
   constructor(props) {

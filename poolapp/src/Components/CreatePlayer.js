@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import db from "../firebase.js";
+import "./CreatePlayerGame.css";
 
-import "./CreatePlayer.css";
 
 class CreatePlayer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      playerAdded: false
+      playerAdded: false,
     };
   }
 
@@ -37,15 +37,11 @@ class CreatePlayer extends Component {
   handleSubmit = e => {
     e.preventDefault();
     let newName = this.state.name;
-    if ( db.collection("players").doc(`${this.state.name}`) === null) {
-      db.collection("players").add({
-        name: newName
-      });
-      this.setState({ playerAdded: true });
-    } else {
-      alert('someone is already using that name');
-    }
-  };
+        db.collection("players").add({
+          name: newName
+        });
+        this.setState({ playerAdded: true });
+      }
 
   render() {
     return (
@@ -70,7 +66,7 @@ class CreatePlayer extends Component {
         </form>
         {this.playerAddedInfo()}
         <Link to="/">
-          <i class="fa fa-arrow-left" />
+          <i className="fa fa-arrow-left" />
         </Link>
       </div>
     );
