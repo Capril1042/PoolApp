@@ -25,7 +25,7 @@ class CreateGame extends Component {
       winnerDeclared: false
     });
   };
-  
+
   selectPlayersForm = () => {
     const players = this.state.players;
     return !this.state.playersSelected ? (
@@ -33,11 +33,15 @@ class CreateGame extends Component {
         <label className="selectplayers--label">
           Player 1:
           <select
-          className="selectplayers--form--select"
+            className="selectplayers--form--select"
             type="select"
             name="playerOne"
             onChange={this.handleChangePlayerOne}
+            selected={this.state.playerOne}
           >
+            <option selected disabled hidden>
+              Choose here
+            </option>
             {players.map((player, i) => (
               <option key={i} value={player.data.name}>
                 {player.data.name}
@@ -49,11 +53,15 @@ class CreateGame extends Component {
         <label className="selectplayers--label">
           Player 2:
           <select
-          className="selectplayers--form--select"
+            className="selectplayers--form--select"
             type="select"
             name="playerTwo"
             onChange={this.handleChangePlayerTwo}
+            selected={this.state.playerTwo}
           >
+            <option selected disabled hidden>
+              Choose here
+            </option>
             {players
               .filter(player => player.data.name !== this.state.playerOne)
               .map((player, i) => (
@@ -71,7 +79,7 @@ class CreateGame extends Component {
 
   winnerAddForm = () => {
     return this.state.playersSelected ? (
-      <form className="selectwinner--form"onSubmit={this.handleGameSubmit}>
+      <form className="selectwinner--form" onSubmit={this.handleGameSubmit}>
         {" "}
         <label className="selectwinner--label">
           winner:
@@ -80,6 +88,9 @@ class CreateGame extends Component {
             name="winner"
             onChange={this.handleChangeWinner}
           >
+            <option selected disabled hidden>
+              Choose here
+            </option>
             <option value={this.state.playerOne}>{this.state.playerOne}</option>
             <option value={this.state.playerTwo}>{this.state.playerTwo}</option>
           </select>
@@ -105,7 +116,12 @@ class CreateGame extends Component {
   };
 
   handlePlayerSubmit = e => {
-    this.setState({ playersSelected: true });
+    if (this.state.playerOne !== "" && this.state.playerTwo !== "") {
+      this.setState({ playersSelected: true });
+    } else {
+      alert(`players weren't properly added try again`);
+    }
+
     e.preventDefault();
   };
 
@@ -116,7 +132,9 @@ class CreateGame extends Component {
         <button>
           <Link to="/leaderboard">see leaderboard</Link>
         </button>
-        <button className="winneradded--button--reset"onClick={this.resetForm}>add another game</button>
+        <button className="winneradded--button--reset" onClick={this.resetForm}>
+          add another game
+        </button>
       </div>
     ) : null;
   };
@@ -148,7 +166,7 @@ class CreateGame extends Component {
   render() {
     console.log(this.state.playerOne);
     console.log(this.state.playerTwo);
-    console.log(this.state.winner)
+    console.log(this.state.winner);
     return (
       <div className="creategame">
         <h2 className="creategame--heading">Create Game</h2>
