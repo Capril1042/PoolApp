@@ -37,11 +37,14 @@ class CreatePlayer extends Component {
   handleSubmit = e => {
     e.preventDefault();
     let newName = this.state.name;
-
-    db.collection("players").add({
-      name: newName
-    });
-    this.setState({ playerAdded: true });
+    if ( db.collection("players").doc(`${this.state.name}`) === null) {
+      db.collection("players").add({
+        name: newName
+      });
+      this.setState({ playerAdded: true });
+    } else {
+      alert('someone is already using that name');
+    }
   };
 
   render() {
