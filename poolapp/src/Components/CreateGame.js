@@ -33,6 +33,7 @@ class CreateGame extends Component {
         <label className="selectplayers--label">
           Player 1:
           <select
+          className="selectplayers--form--select"
             type="select"
             name="playerOne"
             onChange={this.handleChangePlayerOne}
@@ -48,6 +49,7 @@ class CreateGame extends Component {
         <label className="selectplayers--label">
           Player 2:
           <select
+          className="selectplayers--form--select"
             type="select"
             name="playerTwo"
             onChange={this.handleChangePlayerTwo}
@@ -62,7 +64,7 @@ class CreateGame extends Component {
             ;
           </select>
         </label>
-        <input type="submit" value="Submit" />
+        <input className="selectplayers--input" type="submit" value="Submit" />
       </form>
     ) : null;
   };
@@ -82,10 +84,11 @@ class CreateGame extends Component {
             <option value={this.state.playerTwo}>{this.state.playerTwo}</option>
           </select>
         </label>
-        <input type="submit" value="Submit" />{" "}
+        <input className="selectwinner--submit" type="submit" value="Submit" />{" "}
       </form>
     ) : null;
   };
+
   handleChangePlayerOne = e => {
     e.preventDefault();
     this.setState({ playerOne: e.target.value });
@@ -113,7 +116,7 @@ class CreateGame extends Component {
         <button>
           <Link to="/leaderboard">see leaderboard</Link>
         </button>
-        <button onClick={this.resetForm}>add another game</button>
+        <button className="winneradded--button--reset"onClick={this.resetForm}>add another game</button>
       </div>
     ) : null;
   };
@@ -143,6 +146,9 @@ class CreateGame extends Component {
   }
 
   render() {
+    console.log(this.state.playerOne);
+    console.log(this.state.playerTwo);
+    console.log(this.state.winner)
     return (
       <div className="creategame">
         <h2 className="creategame--heading">Create Game</h2>

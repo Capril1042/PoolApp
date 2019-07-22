@@ -1,4 +1,5 @@
-.createplayer--heading {
+.createplayer--heading, 
+.creategame--heading {
   font-size: 3em;
   color: white;
 }
@@ -16,11 +17,22 @@
   border: 1px solid red;
 }
 
+.selectwinner--form {
+  line-height:3vh;
+}
+
+.selectplayers--form {
+  line-height: 2vh;
+  margin:5%;
+  
+}
+
 .createplayer--form--label,
 .selectplayers--label,
 .selectwinner--label {
   font-size: 1.5em;
   font-weight: bold;
+  margin:5%;
 }
 .createplayer--form--input {
   background-color: rgba(255, 0, 0, 0.08);
@@ -28,7 +40,9 @@
   font-size: 1rem;
   font-weight: bold;
 }
-.createplayer--form--submit {
+.createplayer--form--submit,
+.selectplayers--input,
+.selectwinner--submit {
   height: 6vh;
   background-color: black;
   color: white;
@@ -39,10 +53,14 @@
   color: whitesmoke;
 }
 .createplayer--form--label,
-.createplayer--form--input {
+.createplayer--form--input,
+.selectwinner--label,
+.selectplayers--input,
+.selectplayers--form--select {
   width: 75%;
 }
-.playeradded--button--reset {
+.playeradded--button--reset,
+.winneradded--button--reset {
   font-weight: bold;
   font-size: 0.6em;
 }
@@ -60,15 +78,25 @@ i {
   h2 {
     margin-top: 5%;
   }
-  .createplayer--form {
+  .createplayer--form,
+  .selectwinner--form {
     height: 10vh;
     width: 30vw;
     line-height: 3vh;
   }
-  .createplayer--form--label,
-  .createplayer--form--input {
-    width: 100%;
+  .selectplayers--form {
+    margin:auto;
+    height:15vh;
+    width:25vw;
+    line-height: 3vh;
   }
+  .createplayer--form--label,
+  .createplayer--form--input,
+  .selectwinner--label {
+    width: 100%;
+    margin: 3%;
+  }
+  
 
   button {
     height: 15vh;

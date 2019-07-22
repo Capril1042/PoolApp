@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import playersWins from "../Utils/PlayersWins.js";
 import db from "../firebase.js";
+import { Link } from "react-router-dom";
 import "./Leaderboard.css";
 
 class Leaderboard extends Component {
@@ -28,13 +29,14 @@ class Leaderboard extends Component {
     const scores = playersWins(this.state.games);
     console.log(scores);
     return (
-      <div className="Leaderboard">
+      <div className="leaderboard">
         {" "}
-        Leaderboard
-        <table>
+        <h2 className="leaderboard--heading">Leaderboard</h2>
+        <table className="leaerboard--table">
           <thead>
             {" "}
             <tr>
+              <th>Rank</th>
               <th>Name</th>
               <th> Wins</th>
             </tr>
@@ -43,12 +45,16 @@ class Leaderboard extends Component {
           <tbody>
             {scores.map((winner, i) => (
               <tr key={i}>
-                <td>{winner.name}</td>
+                <td>{i + 1}</td>
+                <td>{winner.name.toUpperCase()}</td>
                 <td>{winner.wins}</td>
               </tr>
             ))}
           </tbody>
         </table>
+        <Link to="/">
+          <i class="fa fa-arrow-left" />
+        </Link>
       </div>
     );
   }

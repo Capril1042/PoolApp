@@ -15,3 +15,4 @@ export default function playersWins(gamesArray) {
   }
   return WinnerSumArray.sort((a, b) => b.wins - a.wins);
 }
+
