@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import db from "../firebase.js";
-import "./CreatePlayerGame.css";
 
+import exists from "../Utils/ValidatePlayer";
+import "./CreatePlayerGame.css";
+import getPlayers from "../Utils/GetPlayers.js";
 
 class CreatePlayer extends Component {
   constructor(props) {
@@ -10,7 +12,12 @@ class CreatePlayer extends Component {
     this.state = {
       name: "",
       playerAdded: false,
+      existingplayers: []
     };
+  }
+  componentDidMount() {
+    let newPlayers = getPlayers();
+    this.setState({ existingplayers: newPlayers });
   }
 
   resetForm = () => {
@@ -37,13 +44,20 @@ class CreatePlayer extends Component {
   handleSubmit = e => {
     e.preventDefault();
     let newName = this.state.name;
-        db.collection("players").add({
-          name: newName
-        });
-        this.setState({ playerAdded: true });
-      }
+    let playerExists = exists(this.state.existingplayers, newName);
+
+    if (playerExists === true) {
+      alert("already in db");
+    } else {
+      db.collection("players").add({
+        name: newName
+      });
+      this.setState({ playerAdded: true });
+    }
+  };
 
   render() {
+    console.log(this.state.existingplayers);
     return (
       <div className="createplayer">
         <h2 className="createplayer--heading">Create Player</h2>
