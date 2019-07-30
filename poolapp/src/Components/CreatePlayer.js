@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import AddedAlert from "./AddedAlert";
+import BackArrow from "./BackArrow";
 import db from "../firebase.js";
 
 import exists from "../Utils/ValidatePlayer";
@@ -23,17 +25,12 @@ class CreatePlayer extends Component {
   resetForm = () => {
     this.setState({ name: "", playerAdded: false });
   };
+
   playerAddedInfo = () => {
     return this.state.playerAdded ? (
-      <div className="createplayer--playeradded">
-        {this.state.name} was added!
-        <button className="playeradded--button--reset" onClick={this.resetForm}>
-          add another player
-        </button>
-        <button className="playeradded--button">
-          <Link to="/creategame">start a new game</Link>{" "}
-        </button>
-      </div>
+      <AddedAlert className={"createplayer--playeradded"}
+      message={`${this.state.name} was added!`}
+      action={this.resetForm}/>
     ) : null;
   };
 
@@ -79,9 +76,7 @@ class CreatePlayer extends Component {
           />
         </form>
         {this.playerAddedInfo()}
-        <Link to="/">
-          <i className="fa fa-arrow-left" />
-        </Link>
+        <BackArrow/>
       </div>
     );
   }
