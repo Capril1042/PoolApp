@@ -8,32 +8,34 @@ import exists from "../Utils/ValidatePlayer";
 import "./CreatePlayerGame.css";
 import getPlayers from "../Utils/GetPlayers.js";
 
-function CreatePlayer () {
+function CreatePlayer() {
   const [name, setName] = useState("");
-  const [playerAdded, setPlayerAdded]= useState(false);
-  const [existingPlayers, setExisitingPlayers] = useState([]);
+  const [playerAdded, setPlayerAdded] = useState(false);
+  const [existingPlayers, setExisitingPlayers] = useState(null);
 
   useEffect(() => {
     let newPlayers = getPlayers();
     setExisitingPlayers({ existingPlayers: newPlayers });
-  })
+  }, []);
 
   const resetForm = () => {
     setName({ name: "", playerAdded: false });
-  }
+  };
 
   const playerAddedInfo = () => {
     return playerAdded ? (
-      <AddedAlert className={"createplayer--playeradded"}
-      message={`${name} was added!`}
-      action={resetForm}/>
+      <AddedAlert
+        className={"createplayer--playeradded"}
+        message={`${name} was added!`}
+        action={resetForm}
+      />
     ) : null;
-  }
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
     let newName = name;
-    let playerExists = exists(existingPlayers, newName);
+    let playerExists = exists(existingPlayers.existingPlayers, newName);
 
     if (playerExists === true) {
       alert("already in db");
@@ -44,32 +46,30 @@ function CreatePlayer () {
       setPlayerAdded({ playerAdded: true });
     }
   };
-
-  
-    return (
-      <div className="createplayer">
-        <h2 className="createplayer--heading">Create Player</h2>
-        <form className="createplayer--form" onSubmit={handleSubmit}>
-          <label className="createplayer--form--label">
-            Name:
-            <input
-              className="createplayer--form--input"
-              type="text"
-              name="name"
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-          </label>
+  return (
+    <div className="createplayer">
+      <h2 className="createplayer--heading">Create Player</h2>
+      <form className="createplayer--form" onSubmit={handleSubmit}>
+        <label className="createplayer--form--label">
+          Name:
           <input
-            className="createplayer--form--submit"
-            type="submit"
-            value="Submit"
+            className="createplayer--form--input"
+            type="text"
+            name="name"
+            value={name}
+            onChange={e => setName(e.target.value)}
           />
-        </form>
-        {playerAddedInfo()}
-        <BackArrow/>
-      </div>
-    );
-  }
+        </label>
+        <input
+          className="createplayer--form--submit"
+          type="submit"
+          value="Submit"
+        />
+      </form>
+      {playerAddedInfo()}
+      <BackArrow />
+    </div>
+  );
+}
 
 export default CreatePlayer;
