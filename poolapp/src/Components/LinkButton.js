@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 
+
 function LinkButton(props) {
   return (
     <div className="linkbutton">
