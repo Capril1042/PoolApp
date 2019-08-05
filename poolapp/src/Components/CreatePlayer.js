@@ -27,7 +27,11 @@ function CreatePlayer() {
       <AddedAlert
         className={"createplayer--playeradded"}
         message={`${name} was added!`}
-        action={resetForm}
+        buttonAction={resetForm}
+        buttonClassName={"playeradded--button--reset"}
+        buttonText={"add another player"}
+        linkRoute={"/creategame"}
+        linkText={"start a new game"}
       />
     ) : null;
   };

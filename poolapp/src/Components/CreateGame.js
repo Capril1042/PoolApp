@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import BackArrow from "./BackArrow";
+import SelectPlayersForm from "./SelectPlayers";
+import WinnerAddForm from "./WinnerAdd";
 import db from "../firebase.js";
 
 import "./CreatePlayerGame.css";
+import AddedAlert from "./AddedAlert";
 
 class CreateGame extends Component {
   constructor(props) {
@@ -29,74 +33,25 @@ class CreateGame extends Component {
   selectPlayersForm = () => {
     const players = this.state.players;
     return !this.state.playersSelected ? (
-      <form className="selectplayers--form" onSubmit={this.handlePlayerSubmit}>
-        <label className="selectplayers--label">
-          Player 1:
-          <select
-            className="selectplayers--form--select"
-            type="select"
-            name="playerOne"
-            onChange={this.handleChangePlayerOne}
-            selected={this.state.playerOne}
-          >
-            <option selected disabled hidden>
-              Choose here
-            </option>
-            {players.map((player, i) => (
-              <option key={i} value={player.data.name}>
-                {player.data.name}
-              </option>
-            ))}
-            ;
-          </select>
-        </label>
-        <label className="selectplayers--label">
-          Player 2:
-          <select
-            className="selectplayers--form--select"
-            type="select"
-            name="playerTwo"
-            onChange={this.handleChangePlayerTwo}
-            selected={this.state.playerTwo}
-          >
-            <option selected disabled hidden>
-              Choose here
-            </option>
-            {players
-              .filter(player => player.data.name !== this.state.playerOne)
-              .map((player, i) => (
-                <option key={i} value={player.data.name}>
-                  {player.data.name}
-                </option>
-              ))}
-            ;
-          </select>
-        </label>
-        <input className="selectplayers--input" type="submit" value="Submit" />
-      </form>
+      <SelectPlayersForm
+        players={players}
+        submit={this.handlePlayerSubmit}
+        changePlayerOne={this.handleChangePlayerOne}
+        playerOne={this.state.playerOne}
+        changePlayerTwo={this.handleChangePlayerTwo}
+        playerTwo={this.state.playerTwo}
+      />
     ) : null;
   };
 
   winnerAddForm = () => {
     return this.state.playersSelected ? (
-      <form className="selectwinner--form" onSubmit={this.handleGameSubmit}>
-        {" "}
-        <label className="selectwinner--label">
-          winner:
-          <select
-            type="select"
-            name="winner"
-            onChange={this.handleChangeWinner}
-          >
-            <option selected disabled hidden>
-              Choose here
-            </option>
-            <option value={this.state.playerOne}>{this.state.playerOne}</option>
-            <option value={this.state.playerTwo}>{this.state.playerTwo}</option>
-          </select>
-        </label>
-        <input className="selectwinner--submit" type="submit" value="Submit" />{" "}
-      </form>
+      <WinnerAddForm
+        submit={this.handleGameSubmit}
+        change={this.handleChangeWinner}
+        playerOne={this.state.playerOne}
+        playerTwo={this.state.playerTwo}
+      />
     ) : null;
   };
 
@@ -127,15 +82,15 @@ class CreateGame extends Component {
 
   winnerAlertMessage = () => {
     return this.state.winnerDeclared ? (
-      <div className="winnerdeclared--alert">
-        {this.state.winner} won the game
-        <button>
-          <Link to="/leaderboard">see leaderboard</Link>
-        </button>
-        <button className="winneradded--button--reset" onClick={this.resetForm}>
-          add another game
-        </button>
-      </div>
+      <AddedAlert
+        className={"winnerdeclared--alert"}
+        message={`${this.state.winner} won the game`}
+        buttonClassName={"winneradded--button--reset"}
+        buttonAction={this.resetForm}
+        buttonText={"add another game"}
+        linkRoute={"/leaderboard"}
+        linkText={"see leaderboard"}
+      />
     ) : null;
   };
 
@@ -164,18 +119,13 @@ class CreateGame extends Component {
   }
 
   render() {
-    console.log(this.state.playerOne);
-    console.log(this.state.playerTwo);
-    console.log(this.state.winner);
     return (
       <div className="creategame">
         <h2 className="creategame--heading">Create Game</h2>
         {this.selectPlayersForm()}
         {this.winnerAddForm()}
         {this.winnerAlertMessage()}
-        <Link to="/">
-          <i class="fa fa-arrow-left" />
-        </Link>
+        <BackArrow />
       </div>
     );
   }
